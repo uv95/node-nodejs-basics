@@ -7,18 +7,18 @@ const copy = async () => {
   const destFolderName = 'files_copy';
   const __dirname = dirname(fileURLToPath(import.meta.url));
 
-  const srcFolderDir = join(__dirname, srcFolderName);
-  const destFolderDir = join(__dirname, destFolderName);
+  const srcFolderPath = join(__dirname, srcFolderName);
+  const destFolderPath = join(__dirname, destFolderName);
 
   try {
-    const isSrcFolderExists = await pathExists(srcFolderDir);
-    const isDestFolderExists = await pathExists(destFolderDir);
+    const isSrcFolderExists = await pathExists(srcFolderPath);
+    const isDestFolderExists = await pathExists(destFolderPath);
 
     if (!isSrcFolderExists || isDestFolderExists) {
       throw new Error('FS operation failed');
     }
 
-    await cp(srcFolderDir, destFolderDir, {
+    await cp(srcFolderPath, destFolderPath, {
       errorOnExist: true,
       recursive: true,
     });
