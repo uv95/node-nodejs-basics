@@ -5,7 +5,7 @@ const parseArgs = () => {
 
     if (curr.startsWith('--')) {
       acc += ` is `;
-      return acc;
+      return acc.replace('--', '');
     }
 
     return index === args.length - 1 ? acc : `${acc}, `;
