@@ -10,16 +10,16 @@ const create = async () => {
   const __dirname = dirname(fileURLToPath(import.meta.url));
   const filePath = join(__dirname, folderName, fileName);
 
-  const fileExists = await pathExists(filePath);
-
-  if (fileExists) {
-    throw new Error('FS operation failed');
-  }
-
   try {
+    const fileExists = await pathExists(filePath);
+
+    if (fileExists) {
+      throw new Error('FS operation failed');
+    }
+
     await writeFile(filePath, content);
   } catch (error) {
-    console.log('Error: ', error.message);
+    console.log(error);
   }
 };
 
