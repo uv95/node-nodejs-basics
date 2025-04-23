@@ -6,19 +6,30 @@ const create = async () => {
   const folderName = 'files';
   const fileName = 'fresh.txt';
   const content = 'I am fresh and young';
+
   const __dirname = dirname(fileURLToPath(import.meta.url));
   const filePath = join(__dirname, folderName, fileName);
 
-  try {
-    await access(filePath);
+  const fileExists = await pathExists(filePath);
+
+  if (fileExists) {
     throw new Error('FS operation failed');
+  }
+
+  try {
+    await writeFile(filePath, content);
   } catch (error) {
-    if (error.code === 'ENOENT') {
-      await writeFile(filePath, content);
-    } else {
-      console.log('Error: ', error.message);
-    }
+    console.log('Error: ', error.message);
   }
 };
 
 await create();
+
+async function pathExists(path) {
+  try {
+    await access(path);
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
