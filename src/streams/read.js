@@ -12,6 +12,7 @@ const read = async () => {
 
   try {
     const stream = createReadStream(filePath);
+    stream.on('end', () => process.stdout.write('\n')); //to display the content when running npm command
     await pipeline(stream, process.stdout);
   } catch (error) {
     console.log(error);
